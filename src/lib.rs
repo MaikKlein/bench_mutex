@@ -15,7 +15,7 @@ mod tests {
             let sum = v.iter().fold(0, |acc, ref m| {
                 match m.lock() {
                     Ok(guard) => acc + *guard,
-                    _ => acc,
+                    _ => panic!("There should be no Err"),
                 }
             });
             sum
@@ -30,7 +30,7 @@ mod tests {
             let sum = v.iter().fold(0, |acc, ref m| {
                 match m.try_lock() {
                     Some(guard) => acc + *guard,
-                    _ => acc,
+                    _ => panic!("There should be no None"),
                 }
             });
             sum
@@ -57,7 +57,7 @@ mod tests {
             let sum = v.iter().fold(0, |acc, o| {
                 match o {
                      &Some(val) => acc + val,
-                    _ => acc,
+                    _ => panic!("There should be no None"),
                 }
             });
             sum
